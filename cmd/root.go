@@ -34,7 +34,7 @@ var rootCmd = &cobra.Command{
 	Short: "TODO",
 	Long: `TODO`,
 
-	Run: func(cmd *cobra.Command, args []string) {k8s.InitApiConnection(&Cfg)},
+	Run: func(cmd *cobra.Command, args []string) {k8s.RunAllTheTests(&Cfg)},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
