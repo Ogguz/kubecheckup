@@ -17,3 +17,6 @@
 
 # Binary
 kubecheckup
+
+# Personal Debug Configs
+dev-config.yaml

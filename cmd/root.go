@@ -17,17 +17,16 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
 	"github.com/Ogguz/kubecheckup/k8s"
+	"github.com/Ogguz/kubecheckup/model"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"gopkg.in/yaml.v2"
 	"os"
-
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
 
 var cfgFile string
+var Cfg model.Config
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -35,7 +34,7 @@ var rootCmd = &cobra.Command{
 	Short: "TODO",
 	Long: `TODO`,
 
-	Run: func(cmd *cobra.Command, args []string) {k8s.InitApiConnection()},
+	Run: func(cmd *cobra.Command, args []string) {k8s.InitApiConnection(&Cfg)},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -58,27 +57,23 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-// initConfig reads in config file and ENV variables if set.
+// initConfig reads in config file.
 func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-		log.Debug("Using config file provided by flag, ",cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		log.Debug("Home dir is ",home)
-		cobra.CheckErr(err)
+	readFile(&Cfg,cfgFile)
+}
 
-		// Search config in home directory with name ".kubecheckup" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".kubecheckup")
+func readFile(cfg *model.Config, cfgFile string) {
+	log.Debug("Opening ",cfgFile)
+	f, err := os.Open(cfgFile)
+	if err != nil {
+		log.Fatal(err)
 	}
+	defer f.Close()
 
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+	decoder := yaml.NewDecoder(f)
+	err = decoder.Decode(cfg)
+	if err != nil {
+		log.Fatal(err)
 	}
+	log.Debug("Kubernetes config file ", cfg.Kubernetes.ConfigFile)
 }
