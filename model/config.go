@@ -1,6 +1,8 @@
 package model
 
 type Config struct {
-	endpoint	string
-	kubeconfig  string
+	Kubernetes struct {
+		ConfigFile string `yaml:"configFile"`
+	} `yaml:"kubernetes"`
+
 }

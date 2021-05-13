@@ -1,0 +1,4 @@
+# Kubernetes configurations
+
+kubernetes:
+  configFile: "/path/to/your/config/file"

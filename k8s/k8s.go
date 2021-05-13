@@ -1,6 +1,7 @@
 package k8s
 
 import (
+	"github.com/Ogguz/kubecheckup/model"
 	log "github.com/sirupsen/logrus"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
@@ -16,10 +17,9 @@ import (
 )
 
 // InitApiConnection reads kubeconfig file and returns clientset for api connection.
-func InitApiConnection() *kubernetes.Clientset {
+func InitApiConnection(c *model.Config) *kubernetes.Clientset {
 
-	//var kubeconfig *string
-	kubeconfig := ""
+	kubeconfig := c.Kubernetes.ConfigFile
 
 	log.Debugf("Reading kubeconfig file from %s",kubeconfig)
 	// use the current context in kubeconfig
