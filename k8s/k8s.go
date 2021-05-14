@@ -29,6 +29,8 @@ func RunAllTheTests(c *model.Config)  { // TODO
 	fmt.Println(result)
 	result, _ = checkCoreComponenets(k)
 	fmt.Println(result)
+	result, _ = checkDeployments(k)
+	fmt.Println(result)
 }
 
 // initApiConnection reads kubeconfig file and returns clientset for api connection.
