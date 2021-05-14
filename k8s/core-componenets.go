@@ -8,7 +8,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func checkCoreComponenets(k kubernetes.Clientset) (string, bool) {
+func checkCoreComponenets(k *kubernetes.Clientset) (string, bool) {
 
 	coreComponents, err := k.CoreV1().ComponentStatuses().List(context.TODO(),metav1.ListOptions{})
 	if err != nil {
@@ -20,7 +20,7 @@ func checkCoreComponenets(k kubernetes.Clientset) (string, bool) {
 
 	for _,i := range coreComponents.Items {
 		for _,s := range i.Conditions {
-			if s.Status != "true" {
+			if s.Status != "True" {
 				listOfUnhealthyComponents = append(listOfUnhealthyComponents,i.GetName())
 			}
 		}
