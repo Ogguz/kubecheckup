@@ -19,11 +19,13 @@ import (
 	// _ "k8s.io/client-go/plugin/pkg/client/auth/openstack"
 )
 
-func RunAllTheTests(c *model.Config)  {
+func RunAllTheTests(c *model.Config)  { // TODO
 	k := initApiConnection(c)
 	var result string // TODO send notification if return is false
 	// TODO add go routine
 	result,_ = checkKubernetesVersion(k)
+	fmt.Println(result)
+	result,_ = orphanEndpoints(k)
 	fmt.Println(result)
 
 }

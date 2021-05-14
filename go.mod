@@ -13,5 +13,6 @@ require (
 	github.com/spf13/viper v1.7.1
 	github.com/tcnksm/go-latest v0.0.0-20170313132115-e3007ae9052e // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	k8s.io/apimachinery v0.21.0 // indirect
 	k8s.io/client-go v0.21.0
 )
