@@ -20,7 +20,7 @@ func checkCoreComponenets(k *kubernetes.Clientset) (string, bool) {
 
 	for _,i := range coreComponents.Items {
 		for _,s := range i.Conditions {
-			if s.Status != "true" {
+			if s.Status != "True" {
 				listOfUnhealthyComponents = append(listOfUnhealthyComponents,i.GetName())
 			}
 		}
