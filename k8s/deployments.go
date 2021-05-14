@@ -10,7 +10,7 @@ import (
 
 func checkDeployments(k *kubernetes.Clientset) (string, bool) {
 
-	deployments, err := k.AppsV1().Deployments().List(context.TODO(),metav1.ListOptions{})
+	deployments, err := k.AppsV1().Deployments("").List(context.TODO(),metav1.ListOptions{})
 	if err != nil {
 		log.Fatal("Could not get deployment list ", err)
 	}
