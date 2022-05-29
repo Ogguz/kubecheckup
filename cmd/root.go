@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 NAME HERE <EMAIL ADDRESS>
+Copyright © 2021 Ogguz
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,12 +17,13 @@ limitations under the License.
 package cmd
 
 import (
+	"os"
+
 	"github.com/Ogguz/kubecheckup/k8s"
 	"github.com/Ogguz/kubecheckup/model"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"gopkg.in/yaml.v2"
-	"os"
 )
 
 var cfgFile string
@@ -32,9 +33,9 @@ var Cfg model.Config
 var rootCmd = &cobra.Command{
 	Use:   "kubecheckup",
 	Short: "TODO",
-	Long: `TODO`,
+	Long:  `TODO`,
 
-	Run: func(cmd *cobra.Command, args []string) {k8s.RunAllTheTests(&Cfg)},
+	Run: func(cmd *cobra.Command, args []string) { k8s.RunAllTheTests(&Cfg) },
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -59,11 +60,11 @@ func init() {
 
 // initConfig reads in config file.
 func initConfig() {
-	readFile(&Cfg,cfgFile)
+	readFile(&Cfg, cfgFile)
 }
 
 func readFile(cfg *model.Config, cfgFile string) {
-	log.Debug("Opening ",cfgFile)
+	log.Debug("Opening ", cfgFile)
 	f, err := os.Open(cfgFile)
 	if err != nil {
 		log.Fatal(err)
